@@ -1,16 +1,19 @@
 package com.example.isms.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
 @Data
 public class Mat {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private String teamname;
     private int matchId;
+    private String teamname;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "matchId",nullable = false,insertable = false,updatable = false)
+    @JsonIgnore
+    private Matches matches;
+
 }

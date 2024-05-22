@@ -1,10 +1,10 @@
 package com.example.isms.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.List;
 
 @Entity
 @Data
@@ -16,4 +16,9 @@ public class Matches {
     private String result;
     private String venue;
     private String matchstatus;
+
+    @OneToMany(mappedBy = "matches",fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Mat> mats;
+
 }

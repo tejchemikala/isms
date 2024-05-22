@@ -1,9 +1,7 @@
 package com.example.isms.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
@@ -11,9 +9,13 @@ import lombok.Data;
 public class Player {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private int player_id;
     private String name_;
     private String playertype;
-    private int player_id;
-    private String stats;
     private String teamname;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "teamname",nullable = false,insertable = false,updatable = false)
+    @JsonIgnore
+    private Team team;
 }
